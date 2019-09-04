@@ -1,26 +1,26 @@
-.city-container{
+.person-container{
   width:50%;
   margin: 20px auto;
 }
-.city-item{
+.person-item{
   padding: 10px;
   backgorund-color:#fff;
   border-bottom:1px solid #ccc;
   cursor: pointer;
 }
-.city-item .collapse-container{
+.person-item .collapse-container{
   display: inline-block;
   width: 95%;
 }
-.city-item .delete-container{
+.person-item .delete-container{
   display: inline-block;
   width: 5%;
 }
-.city-item .delete-container a{
+.person-item .delete-container a{
   color:#333;
   margin-left: 10px;
 }
-.city-item .city-sub-container{
+.person-item .person-sub-container{
   margin: 5px 30px;
   display: none;
 }

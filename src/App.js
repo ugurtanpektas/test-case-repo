@@ -9,7 +9,7 @@ class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      cityData : []
+      personData : []
     }
   }
   componentDidMount(){
@@ -34,31 +34,57 @@ class App extends React.Component{
   }
 
   changeData = () => {
-    let newCityData = this.findChild(jsonData)
-    console.log(newCityData)
+    let newpersonData = this.findChild(jsonData)
     this.setState({
-      cityData:newCityData
+      personData:newpersonData
     })
   }
+
+  findAndDelete = (array, id) => {
+      let length = array.length;
+      while (length--) {
+          if (array[length].ID == id) {
+              array.splice(length, 1);
+              continue;
+          }
+          array[length].subData && this.findAndDelete(array[length].subData, id);
+      }
+      return array;
+  }
+
   deleteItem = (id) => {
     this.setState({
-      cityData:this.state.cityData.filter(cityElement => cityElement.ID !== id)
-    })
+      personData:this.findAndDelete(this.state.personData, id)
+    })  
   }
+
   toggleItem = (id) => {
     jQuery('#subItem'+id).slideToggle();
   }
 
-  showSubItems = (city) => {
-    if(city.hasOwnProperty('subData') && city.subData.length > 0){
+  showSubItems = (person) => {
+    if(person.hasOwnProperty('subData') && person.subData.length > 0){
       return(
-        <div className="city-sub-container" id={'subItem'+city.ID}>
+        <div className="person-sub-container" id={'subItem'+person.ID}>
           {
-            city.subData.map((data, dataIndex) => {
+            person.subData.map((data, dataIndex) => {
+              let showSubItemCheck = data.hasOwnProperty('subData') && data.subData.length > 0 ? this.showSubItems(data) : '';
+              let personName;
+              if(showSubItemCheck){
+                personName = (
+                  <span className="collapse-container" onClick={(e) => this.toggleItem(data.ID, e)}> <FontAwesomeIcon icon={faChevronDown} /> {data.Name}</span> 
+                )
+              }
+              else{
+                personName = (
+                  <span className="collapse-container"> {data.Name}</span> 
+                )
+              }
               return (
-                <div className="city-item" key={dataIndex}>
-                  {data.Name}
-                  {this.showSubItems(data)}
+                <div className="person-item" key={data.ID}>
+                  {personName} 
+                  <span className="delete-container"><a href="#" onClick={(e) => this.deleteItem(data.ID, e)}><FontAwesomeIcon icon={faMinusCircle} /></a></span>
+                  {showSubItemCheck}
                 </div>
               )
             })
@@ -67,17 +93,30 @@ class App extends React.Component{
       )
     }
   }
+
   render(){
     return(
-      <div className="city-container">
+      <div className="person-container">
         {
-          this.state.cityData.map((city, cityIndex) => {
+          this.state.personData.map((person, personIndex) => {
+            let personName;
+            if(person.hasOwnProperty('subData') && person.subData.length > 0){
+              personName = (
+                <span className="collapse-container" onClick={(e) => this.toggleItem(person.ID, e)}> <FontAwesomeIcon icon={faChevronDown} /> {person.Name}</span> 
+              )
+            }
+            else{
+              personName = (
+                <span className="collapse-container"> {person.Name}</span> 
+              )
+            }
             return (
-            <div className="city-item" key={cityIndex}>
-              <span className="collapse-container" onClick={(e) => this.toggleItem(city.ID, e)}> <FontAwesomeIcon icon={faChevronDown} /> {city.Name}</span> 
-              <span className="delete-container"><a href="#" onClick={(e) => this.deleteItem(city.ID, e)}><FontAwesomeIcon icon={faMinusCircle} /></a></span>
-              {this.showSubItems(city)}
-            </div>)
+              <div className="person-item" key={person.ID}>
+                {personName}
+                <span className="delete-container"><a href="#" onClick={(e) => this.deleteItem(person.ID, e)}><FontAwesomeIcon icon={faMinusCircle} /></a></span>
+                {this.showSubItems(person)}
+              </div>
+            )
           })
         }
       </div>
