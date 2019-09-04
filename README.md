@@ -4,7 +4,7 @@ Uygulamayı local ortamınızda çalıştırabilmek için bilgisayarınızda nod
 
 ### `npm install`
 
-İlk olarak bu komut çalıştırılıp node_modules yüklenir. Projede kullanılan third party moduleler ve reactjs tarafından kullanılan moduleler yüklenir.
+İlk olarak bu komut çalıştırılıp node_modules yüklenir. Projede kullanılan third party modüller ve reactjs tarafından kullanılan modüller yüklenir.
 
 ### `npm start`
 
