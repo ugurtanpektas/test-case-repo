@@ -1,7 +1,5 @@
 import React from 'react'
 import './App.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import jsonData from './dataset.json'
 import jQuery from 'jquery'
 import Person from './components/Person'

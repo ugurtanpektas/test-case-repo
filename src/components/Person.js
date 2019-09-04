@@ -3,11 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 
 class Person extends React.Component{
-
-    constructor(props){
-        super(props)
-    }
-
+  
     render(){
         return(
             <div className="person-container">
@@ -16,7 +12,7 @@ class Person extends React.Component{
                   let personName
                   if(person.hasOwnProperty('subData') && person.subData.length > 0){
                     personName = (
-                      <span className="collapse-container" onClick={(e) => this.props.toggleItem(person.ID, e)}> 
+                      <span className="collapse-container" id="toggleTrigger" onClick={(e) => this.props.toggleItem(person.ID, e)}> 
                         <span className="arrow"><FontAwesomeIcon icon={faChevronDown} /></span> 
                         <span className="column">{person.Name}</span>
                         <span className="column">{person.Phone}</span>
