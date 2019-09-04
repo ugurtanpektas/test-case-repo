@@ -1,9 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import jsonData from './dataset.json'
-import jQuery from 'jquery';
+import jQuery from 'jquery'
+import Person from './components/Person'
+import PersonSub from './components/PersonSub'
 
 class App extends React.Component{
   constructor(props){
@@ -13,7 +15,7 @@ class App extends React.Component{
     }
   }
   componentDidMount(){
-    this.changeData();
+    this.changeData()
   }
 
   findChild = (arrayData) => {
@@ -28,7 +30,7 @@ class App extends React.Component{
         })
         this.findChild(element.subData)
       }
-    });
+    })
     newData = arrayData
     return newData
   }
@@ -41,15 +43,15 @@ class App extends React.Component{
   }
 
   findAndDelete = (array, id) => {
-      let length = array.length;
+      let length = array.length
       while (length--) {
-          if (array[length].ID == id) {
-              array.splice(length, 1);
-              continue;
+          if (array[length].ID === id) {
+              array.splice(length, 1)
+              continue
           }
-          array[length].subData && this.findAndDelete(array[length].subData, id);
+          array[length].subData && this.findAndDelete(array[length].subData, id)
       }
-      return array;
+      return array
   }
 
   deleteItem = (id) => {
@@ -59,89 +61,20 @@ class App extends React.Component{
   }
 
   toggleItem = (id) => {
-    jQuery('#subItem'+id).slideToggle();
+    jQuery('#subItem'+id).slideToggle()
   }
 
   showSubItems = (person) => {
     if(person.hasOwnProperty('subData') && person.subData.length > 0){
-      return(
-        <div className="person-sub-container" id={'subItem'+person.ID}>
-          {
-            person.subData.map((data, dataIndex) => {
-              let showSubItemCheck = data.hasOwnProperty('subData') && data.subData.length > 0 ? this.showSubItems(data) : '';
-              let personName;
-              if(showSubItemCheck){
-                personName = (
-                  <span className="collapse-container" onClick={(e) => this.toggleItem(data.ID, e)}> 
-                    <span className="arrow"><FontAwesomeIcon icon={faChevronDown} /></span> 
-                    <span className="column">{data.Name}</span>
-                    <span className="column">{data.Phone}</span>
-                    <span className="column">{data.City}</span>
-                  </span> 
-                )
-              }
-              else{
-                personName = (
-                  <span className="collapse-container"> 
-                    <span className="arrow"></span> 
-                    <span className="column">{data.Name}</span>
-                    <span className="column">{data.Phone}</span>
-                    <span className="column">{data.City}</span>
-                  </span> 
-                )
-              }
-              return (
-                <div className="person-item" key={data.ID}>
-                  {personName} 
-                  <span className="delete-container"><a href="#" onClick={(e) => this.deleteItem(data.ID, e)}><FontAwesomeIcon icon={faMinusCircle} /></a></span>
-                  {showSubItemCheck}
-                </div>
-              )
-            })
-          }
-        </div>
-      )
+      return (<PersonSub person={person}  showSubItems={this.showSubItems} toggleItem={this.toggleItem} deleteItem={this.deleteItem}></PersonSub>)
     }
   }
 
   render(){
     return(
-      <div className="person-container">
-        {
-          this.state.personData.map((person, personIndex) => {
-            let personName;
-            if(person.hasOwnProperty('subData') && person.subData.length > 0){
-              personName = (
-                <span className="collapse-container" onClick={(e) => this.toggleItem(person.ID, e)}> 
-                  <span className="arrow"><FontAwesomeIcon icon={faChevronDown} /></span> 
-                  <span className="column">{person.Name}</span>
-                  <span className="column">{person.Phone}</span>
-                  <span className="column">{person.City}</span>
-                </span> 
-              )
-            }
-            else{
-              personName = (
-                <span className="collapse-container">
-                  <span className="arrow"></span> 
-                  <span className="column">{person.Name}</span>
-                  <span className="column">{person.Phone}</span>
-                  <span className="column">{person.City}</span>
-                </span> 
-              )
-            }
-            return (
-              <div className="person-item" key={person.ID}>
-                {personName}
-                <span className="delete-container"><a href="#" onClick={(e) => this.deleteItem(person.ID, e)}><FontAwesomeIcon icon={faMinusCircle} /></a></span>
-                {this.showSubItems(person)}
-              </div>
-            )
-          })
-        }
-      </div>
+      <Person personData={this.state.personData} showSubItems={this.showSubItems} toggleItem={this.toggleItem} deleteItem={this.deleteItem}></Person>
     )
   }
 }
 
-export default App;
+export default App
