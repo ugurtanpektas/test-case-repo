@@ -72,12 +72,22 @@ class App extends React.Component{
               let personName;
               if(showSubItemCheck){
                 personName = (
-                  <span className="collapse-container" onClick={(e) => this.toggleItem(data.ID, e)}> <FontAwesomeIcon icon={faChevronDown} /> {data.Name}</span> 
+                  <span className="collapse-container" onClick={(e) => this.toggleItem(data.ID, e)}> 
+                    <span className="arrow"><FontAwesomeIcon icon={faChevronDown} /></span> 
+                    <span className="column">{data.Name}</span>
+                    <span className="column">{data.Phone}</span>
+                    <span className="column">{data.City}</span>
+                  </span> 
                 )
               }
               else{
                 personName = (
-                  <span className="collapse-container"> {data.Name}</span> 
+                  <span className="collapse-container"> 
+                    <span className="arrow"></span> 
+                    <span className="column">{data.Name}</span>
+                    <span className="column">{data.Phone}</span>
+                    <span className="column">{data.City}</span>
+                  </span> 
                 )
               }
               return (
@@ -102,12 +112,22 @@ class App extends React.Component{
             let personName;
             if(person.hasOwnProperty('subData') && person.subData.length > 0){
               personName = (
-                <span className="collapse-container" onClick={(e) => this.toggleItem(person.ID, e)}> <FontAwesomeIcon icon={faChevronDown} /> {person.Name}</span> 
+                <span className="collapse-container" onClick={(e) => this.toggleItem(person.ID, e)}> 
+                  <span className="arrow"><FontAwesomeIcon icon={faChevronDown} /></span> 
+                  <span className="column">{person.Name}</span>
+                  <span className="column">{person.Phone}</span>
+                  <span className="column">{person.City}</span>
+                </span> 
               )
             }
             else{
               personName = (
-                <span className="collapse-container"> {person.Name}</span> 
+                <span className="collapse-container">
+                  <span className="arrow"></span> 
+                  <span className="column">{person.Name}</span>
+                  <span className="column">{person.Phone}</span>
+                  <span className="column">{person.City}</span>
+                </span> 
               )
             }
             return (

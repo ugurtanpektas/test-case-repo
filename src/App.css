@@ -10,17 +10,25 @@
 }
 .person-item .collapse-container{
   display: inline-block;
-  width: 95%;
+  width: 90%;
+}
+.person-item .collapse-container .arrow{
+  display: inline-block;
+  width: 10%;
+}
+.person-item .collapse-container .column{
+  display: inline-block;
+  width: 30%;
 }
 .person-item .delete-container{
   display: inline-block;
-  width: 5%;
+  width: 10%;
 }
 .person-item .delete-container a{
   color:#333;
   margin-left: 10px;
 }
 .person-item .person-sub-container{
-  margin: 5px 30px;
+  margin: 20px 30px;
   display: none;
 }
